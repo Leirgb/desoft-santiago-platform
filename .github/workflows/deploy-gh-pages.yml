@@ -43,14 +43,39 @@ jobs:
         working-directory: frontend
         run: npm run build -- --base-href /desoft-santiago-platform/
 
-      - name: Add SPA fallback
-        working-directory: frontend
-        run: cp dist/desoft-santiago-frontend/browser/index.html dist/desoft-santiago-frontend/browser/404.html
+      - name: Show build output
+        run: |
+          echo "Buscando index.html generado..."
+          find frontend/dist -maxdepth 4 -name index.html -print
+          echo "Contenido de dist:"
+          ls -R frontend/dist
 
-      - name: Upload GitHub Pages artifact
+      - name: Prepare GitHub Pages artifact
+        run: |
+          if [ -f "frontend/dist/desoft-santiago-frontend/browser/index.html" ]; then
+            echo "Usando salida Angular en browser/"
+            cp frontend/dist/desoft-santiago-frontend/browser/index.html frontend/dist/desoft-santiago-frontend/browser/404.html
+            touch frontend/dist/desoft-santiago-frontend/browser/.nojekyll
+          elif [ -f "frontend/dist/desoft-santiago-frontend/index.html" ]; then
+            echo "Usando salida Angular directa en dist/desoft-santiago-frontend/"
+            cp frontend/dist/desoft-santiago-frontend/index.html frontend/dist/desoft-santiago-frontend/404.html
+            touch frontend/dist/desoft-santiago-frontend/.nojekyll
+          else
+            echo "No se encontró index.html en frontend/dist"
+            exit 1
+          fi
+
+      - name: Upload GitHub Pages artifact from browser output
+        if: hashFiles('frontend/dist/desoft-santiago-frontend/browser/index.html') != ''
         uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/dist/desoft-santiago-frontend/browser
+
+      - name: Upload GitHub Pages artifact from direct output
+        if: hashFiles('frontend/dist/desoft-santiago-frontend/index.html') != ''
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: frontend/dist/desoft-santiago-frontend
 
   deploy:
     name: Deploy to GitHub Pages
