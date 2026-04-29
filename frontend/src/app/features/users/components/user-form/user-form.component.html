@@ -1,0 +1,117 @@
+<section class="user-dialog" aria-labelledby="user-dialog-title">
+  <header class="user-dialog__header">
+    <p class="user-dialog__eyebrow">Equipo</p>
+
+    <h2 id="user-dialog-title">
+      {{ dialogTitle }}
+    </h2>
+
+    <p>
+      {{ dialogSubtitle }}
+    </p>
+  </header>
+
+  <form class="user-form" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-dialog-content class="user-dialog__content">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre completo</mat-label>
+        <input matInput formControlName="fullName" />
+
+        @if (controls.fullName.hasError('required') && controls.fullName.touched) {
+          <mat-error>El nombre completo es obligatorio.</mat-error>
+        }
+
+        @if (controls.fullName.hasError('minlength') && controls.fullName.touched) {
+          <mat-error>El nombre debe tener al menos 3 caracteres.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" formControlName="email" />
+
+        @if (controls.email.hasError('required') && controls.email.touched) {
+          <mat-error>El correo electrónico es obligatorio.</mat-error>
+        }
+
+        @if (controls.email.hasError('email') && controls.email.touched) {
+          <mat-error>Introduce un correo electrónico válido.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rol de acceso</mat-label>
+        <mat-select formControlName="accessRole">
+          <mat-option value="ADMIN">Administrador</mat-option>
+          <mat-option value="MANAGER">Jefe de proyecto</mat-option>
+          <mat-option value="MEMBER">Miembro del equipo</mat-option>
+        </mat-select>
+
+        <mat-hint>
+          Define qué permisos tendrá el usuario dentro del sistema.
+        </mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Rol funcional</mat-label>
+        <mat-select formControlName="functionalRole">
+          <mat-option value="PROJECT_MANAGER">Jefe de proyecto</mat-option>
+          <mat-option value="DEVELOPER">Desarrollador</mat-option>
+          <mat-option value="QA">Calidad</mat-option>
+          <mat-option value="ANALYST">Analista</mat-option>
+          <mat-option value="DESIGNER">Diseñador</mat-option>
+          <mat-option value="ARCHITECT">Arquitecto</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Departamento</mat-label>
+        <input matInput formControlName="department" />
+
+        @if (controls.department.hasError('required') && controls.department.touched) {
+          <mat-error>El departamento es obligatorio.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="PENDING_INVITATION">Invitación pendiente</mat-option>
+          <mat-option value="ACTIVE">Activo</mat-option>
+          <mat-option value="INACTIVE">Inactivo</mat-option>
+          <mat-option value="BLOCKED">Bloqueado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Habilidades</mat-label>
+        <input matInput formControlName="skills" placeholder="Angular, NestJS, QA" />
+
+        @if (controls.skills.hasError('required') && controls.skills.touched) {
+          <mat-error>Indica al menos una habilidad.</mat-error>
+        }
+      </mat-form-field>
+
+      <p class="user-dialog__security-note">
+        La contraseña no se administra directamente desde el frontend. Para la
+        demostración, los usuarios activos pueden iniciar sesión con la contraseña
+        <strong>123456</strong>. En producción, se enviaría una invitación segura.
+      </p>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="user-dialog__actions" align="end">
+      <button mat-button type="button" (click)="cancel()">
+        Cancelar
+      </button>
+
+      <button
+        class="ds-gradient-button"
+        mat-flat-button
+        type="submit"
+        [disabled]="!canSubmit()"
+      >
+        Guardar miembro
+      </button>
+    </mat-dialog-actions>
+  </form>
+</section>

@@ -1,0 +1,55 @@
+<aside
+  class="sidebar"
+  [class.sidebar--open]="opened"
+  aria-label="Navegación principal"
+>
+  <header class="sidebar__brand">
+    <a
+      routerLink="/app/dashboard"
+      class="sidebar__brand-link"
+      aria-label="Ir al dashboard"
+      (click)="onNavigate()"
+    >
+      <img
+        class="sidebar__logo"
+        src="/images/logo-desoft-santiago.jfif"
+        alt="Logo de Desoft Santiago"
+      />
+
+      <span class="sidebar__brand-text">
+        <strong>DesoftSantiago</strong>
+        <small>ProjectOps</small>
+      </span>
+    </a>
+  </header>
+
+  <nav class="sidebar__nav" aria-label="Módulos del sistema">
+    <ul class="sidebar__list">
+      @for (item of items; track item.route) {
+        @if (canShowItem(item)) {
+          <li class="sidebar__item">
+            <a
+              class="sidebar__link"
+              [routerLink]="item.route"
+              routerLinkActive="sidebar__link--active"
+              [attr.aria-label]="item.label + ': ' + item.description"
+              (click)="onNavigate()"
+            >
+              <mat-icon aria-hidden="true">{{ item.icon }}</mat-icon>
+
+              <span class="sidebar__link-text">
+                <strong>{{ item.label }}</strong>
+                <small>{{ item.description }}</small>
+              </span>
+            </a>
+          </li>
+        }
+      }
+    </ul>
+  </nav>
+
+  <footer class="sidebar__footer">
+    <p>MVP 7 días</p>
+    <strong>Gestión de proyectos</strong>
+  </footer>
+</aside>

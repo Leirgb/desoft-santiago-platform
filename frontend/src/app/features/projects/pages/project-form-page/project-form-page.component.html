@@ -1,0 +1,154 @@
+<section class="ds-page project-form-page" aria-labelledby="project-form-title">
+  <header class="project-form-page__header">
+    <div>
+      <p class="project-form-page__eyebrow">Gestión de proyectos</p>
+
+      <h1 id="project-form-title" class="ds-page-title">
+        {{ pageTitle() }}
+      </h1>
+
+      <p class="ds-page-subtitle">
+        Define la información principal, prioridad, fechas y tecnologías del proyecto.
+      </p>
+    </div>
+  </header>
+
+  <form class="project-form ds-card" [formGroup]="form" (ngSubmit)="save()">
+    <mat-form-field appearance="outline">
+      <mat-label>Nombre del proyecto</mat-label>
+      <input matInput formControlName="name" />
+
+      @if (controls.name.hasError('required') && controls.name.touched) {
+        <mat-error>El nombre del proyecto es obligatorio.</mat-error>
+      }
+
+      @if (controls.name.hasError('minlength') && controls.name.touched) {
+        <mat-error>El nombre debe tener al menos 3 caracteres.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="project-form__full">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput rows="4" formControlName="description"></textarea>
+
+      @if (controls.description.hasError('required') && controls.description.touched) {
+        <mat-error>La descripción es obligatoria.</mat-error>
+      }
+
+      @if (controls.description.hasError('minlength') && controls.description.touched) {
+        <mat-error>La descripción debe tener al menos 10 caracteres.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Responsable</mat-label>
+      <input matInput formControlName="owner" />
+
+      @if (controls.owner.hasError('required') && controls.owner.touched) {
+        <mat-error>El responsable es obligatorio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Prioridad</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option value="LOW">Baja</mat-option>
+        <mat-option value="MEDIUM">Media</mat-option>
+        <mat-option value="HIGH">Alta</mat-option>
+        <mat-option value="CRITICAL">Crítica</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    @if (isEditMode) {
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="ACTIVE">Activo</mat-option>
+          <mat-option value="PAUSED">Pausado</mat-option>
+          <mat-option value="COMPLETED">Completado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Avance (%)</mat-label>
+        <input
+          matInput
+          type="number"
+          min="0"
+          max="100"
+          formControlName="progress"
+        />
+
+        @if (controls.progress.hasError('min') && controls.progress.touched) {
+          <mat-error>El avance no puede ser menor que 0%.</mat-error>
+        }
+
+        @if (controls.progress.hasError('max') && controls.progress.touched) {
+          <mat-error>El avance no puede ser mayor que 100%.</mat-error>
+        }
+      </mat-form-field>
+    }
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de inicio</mat-label>
+      <input
+        matInput
+        type="date"
+        formControlName="startDate"
+        [min]="minStartDate()"
+        (change)="validateDateRange()"
+      />
+
+      @if (controls.startDate.hasError('required') && controls.startDate.touched) {
+        <mat-error>La fecha de inicio es obligatoria.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Fecha de entrega</mat-label>
+      <input
+        matInput
+        type="date"
+        formControlName="dueDate"
+        [min]="minDueDate()"
+        (change)="validateDateRange()"
+      />
+
+      @if (controls.dueDate.hasError('required') && controls.dueDate.touched) {
+        <mat-error>La fecha de entrega es obligatoria.</mat-error>
+      }
+
+      @if (controls.dueDate.hasError('dateRange') && controls.dueDate.touched) {
+        <mat-error>La fecha de entrega debe ser posterior a la fecha de inicio.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="project-form__full">
+      <mat-label>Tecnologías</mat-label>
+      <input
+        matInput
+        formControlName="technologies"
+        placeholder="Angular, NestJS, PostgreSQL"
+      />
+
+      @if (controls.technologies.hasError('required') && controls.technologies.touched) {
+        <mat-error>Indica al menos una tecnología.</mat-error>
+      }
+    </mat-form-field>
+
+    <footer class="project-form__actions">
+      <button mat-button type="button" (click)="cancel()">
+        Cancelar
+      </button>
+
+      <button
+        class="ds-gradient-button"
+        mat-flat-button
+        type="submit"
+        [disabled]="!canSubmit()"
+      >
+        Guardar proyecto
+      </button>
+    </footer>
+  </form>
+</section>

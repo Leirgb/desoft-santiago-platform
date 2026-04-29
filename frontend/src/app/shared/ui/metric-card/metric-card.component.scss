@@ -1,0 +1,128 @@
+.metric-card {
+  min-height: 156px;
+  padding: 22px;
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  box-shadow: var(--ds-shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ds-shadow-md);
+    border-color: rgba(0, 121, 107, 0.22);
+  }
+}
+
+.metric-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metric-card__label {
+  color: var(--ds-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.metric-card__icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(0, 121, 107, 0.1);
+  color: var(--ds-primary-700);
+
+  mat-icon {
+    font-size: 23px;
+    width: 23px;
+    height: 23px;
+  }
+}
+
+.metric-card__value {
+  display: block;
+  margin-top: 18px;
+  font-family: Manrope, Inter, sans-serif;
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  color: var(--ds-primary);
+}
+
+.metric-card__footer {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--ds-muted);
+  font-size: 12px;
+
+  small {
+    flex: 0 0 auto;
+    padding: 5px 8px;
+    border-radius: 999px;
+    font-weight: 900;
+    color: var(--ds-primary-700);
+    background: rgba(0, 121, 107, 0.1);
+  }
+}
+
+.metric-card--success {
+  .metric-card__icon {
+    color: var(--ds-success);
+    background: rgba(46, 125, 50, 0.1);
+  }
+
+  .metric-card__footer small {
+    color: var(--ds-success);
+    background: rgba(46, 125, 50, 0.1);
+  }
+}
+
+.metric-card--warning {
+  .metric-card__icon {
+    color: var(--ds-warning);
+    background: rgba(237, 155, 33, 0.13);
+  }
+
+  .metric-card__footer small {
+    color: #8a5200;
+    background: rgba(237, 155, 33, 0.14);
+  }
+}
+
+.metric-card--info {
+  .metric-card__icon {
+    color: var(--ds-info);
+    background: rgba(25, 118, 210, 0.1);
+  }
+
+  .metric-card__footer small {
+    color: var(--ds-info);
+    background: rgba(25, 118, 210, 0.1);
+  }
+}
+
+.metric-card--danger {
+  .metric-card__icon {
+    color: var(--ds-error);
+    background: rgba(186, 26, 26, 0.1);
+  }
+
+  .metric-card__footer small {
+    color: var(--ds-error);
+    background: rgba(186, 26, 26, 0.1);
+  }
+}

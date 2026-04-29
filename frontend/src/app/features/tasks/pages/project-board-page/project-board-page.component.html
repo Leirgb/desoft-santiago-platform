@@ -1,0 +1,89 @@
+<section class="ds-page board-page" aria-labelledby="board-title">
+  <header class="board-page__header">
+    <div>
+      <p class="board-page__eyebrow">Gestión de tareas</p>
+
+      <h1 id="board-title" class="ds-page-title">
+        {{ boardTitle() }}
+      </h1>
+
+      <p class="ds-page-subtitle">
+        {{ boardSubtitle() }}
+      </p>
+    </div>
+
+    @if (canCreateTask()) {
+      <button
+        class="ds-gradient-button"
+        mat-flat-button
+        type="button"
+        (click)="onCreateTask()"
+      >
+        <mat-icon aria-hidden="true">add</mat-icon>
+        Nueva tarea
+      </button>
+    }
+  </header>
+
+  <section class="board-page__summary" aria-label="Resumen del tablero">
+    <article>
+      <span>Total</span>
+      <strong>{{ totalTasks() }}</strong>
+    </article>
+
+    <article>
+      <span>Por hacer</span>
+      <strong>{{ todoTasksCount() }}</strong>
+    </article>
+
+    <article>
+      <span>En progreso</span>
+      <strong>{{ inProgressTasksCount() }}</strong>
+    </article>
+
+    <article>
+      <span>En revisión</span>
+      <strong>{{ reviewTasksCount() }}</strong>
+    </article>
+
+    <article>
+      <span>Completadas</span>
+      <strong>{{ doneTasksCount() }}</strong>
+    </article>
+  </section>
+
+  <section class="board-page__toolbar" aria-label="Herramientas del tablero">
+    <form class="board-page__search" role="search" aria-label="Buscar tareas">
+      <mat-icon aria-hidden="true">search</mat-icon>
+
+      <label class="visually-hidden" for="task-search">
+        Buscar tareas
+      </label>
+
+      <input
+        id="task-search"
+        type="search"
+        name="taskSearch"
+        placeholder="Buscar por tarea, proyecto, responsable o etiqueta..."
+        [ngModel]="searchTerm()"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </form>
+  </section>
+
+  <section class="board-page__kanban" aria-label="Tablero Kanban de tareas">
+    @for (column of columns; track column.status) {
+      <app-kanban-column
+        [title]="column.title"
+        [description]="column.description"
+        [status]="column.status"
+        [tasks]="tasksByStatus(column.status)"
+        [canUpdateTask]="canUpdateTask()"
+        [canDeleteTask]="canDeleteTask()"
+        (editTask)="onEditTask($event)"
+        (deleteTask)="onDeleteTask($event)"
+        (statusChanged)="onStatusChanged($event)"
+      />
+    }
+  </section>
+</section>

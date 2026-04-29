@@ -1,0 +1,128 @@
+<main class="auth-page">
+  <div class="auth-page__background" aria-hidden="true"></div>
+  <div class="auth-page__pattern" aria-hidden="true"></div>
+
+  <section class="auth-page__shell" aria-labelledby="login-title">
+    <article class="auth-card">
+      <header class="auth-card__brand">
+        <figure class="auth-card__logo-frame">
+          <img class="auth-card__logo" src="/images/logo-desoft-santiago.jfif" alt="Logo de Desoft Santiago" />
+        </figure>
+
+        <p class="auth-card__eyebrow">Desoft Santiago</p>
+
+        <h1 id="login-title">ProjectOps</h1>
+
+        <p class="auth-card__subtitle">
+          Gestión institucional de proyectos de software.
+        </p>
+      </header>
+
+      <form #loginForm="ngForm" class="auth-card__form" (ngSubmit)="login(loginForm)"
+        aria-label="Formulario de inicio de sesión">
+        <div class="auth-field">
+          <label for="email">Correo electrónico</label>
+
+          <div class="auth-field__control"
+            [class.auth-field__control--invalid]="emailControl.invalid && emailControl.touched">
+            <mat-icon aria-hidden="true">mail</mat-icon>
+
+            <input #emailControl="ngModel" id="email" name="email" type="email" required email autocomplete="email"
+              placeholder="ejemplo@desoft.cu" [(ngModel)]="email" />
+          </div>
+
+          @if (emailControl.hasError('required') && emailControl.touched) {
+          <small class="auth-field__error">
+            El correo electrónico es obligatorio.
+          </small>
+          }
+
+          @if (emailControl.hasError('email') && emailControl.touched) {
+          <small class="auth-field__error">
+            Introduce un correo electrónico válido.
+          </small>
+          }
+        </div>
+
+        <div class="auth-field">
+          <div class="auth-field__label-row">
+            <label for="password">Contraseña</label>
+            <button class="auth-field__link" type="button" (click)="showForgotPasswordInfo()">
+              ¿Olvidó su contraseña?
+            </button>
+          </div>
+
+          <div class="auth-field__control"
+            [class.auth-field__control--invalid]="passwordControl.invalid && passwordControl.touched">
+            <mat-icon aria-hidden="true">lock</mat-icon>
+
+            <input #passwordControl="ngModel" id="password" name="password"
+              [type]="passwordVisible ? 'text' : 'password'" required minlength="6" autocomplete="current-password"
+              placeholder="••••••••" [(ngModel)]="password" />
+
+            <button class="auth-field__icon-button" type="button"
+              [attr.aria-label]="passwordVisible ? 'Ocultar contraseña' : 'Mostrar contraseña'"
+              (click)="togglePasswordVisibility()">
+              <mat-icon aria-hidden="true">
+                {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            </button>
+          </div>
+
+          @if (passwordControl.hasError('required') && passwordControl.touched) {
+          <small class="auth-field__error">
+            La contraseña es obligatoria.
+          </small>
+          }
+
+          @if (passwordControl.hasError('minlength') && passwordControl.touched) {
+          <small class="auth-field__error">
+            La contraseña debe tener al menos 6 caracteres.
+          </small>
+          }
+        </div>
+
+        <div class="auth-card__options">
+          <mat-checkbox name="rememberSession" [(ngModel)]="rememberSession">
+            Recordar mi sesión
+          </mat-checkbox>
+
+          <span class="auth-card__demo">
+            Demo: <strong>123456</strong>
+          </span>
+        </div>
+
+        <button class="auth-card__submit" type="submit" [disabled]="loginForm.invalid">
+          <span>Iniciar sesión</span>
+          <mat-icon aria-hidden="true">arrow_forward</mat-icon>
+        </button>
+      </form>
+
+      <div class="auth-card__divider" aria-hidden="true">
+        <span></span>
+        <small>Acceso institucional</small>
+        <span></span>
+      </div>
+
+      <footer class="auth-card__footer">
+        <span>¿No tiene una cuenta?</span>
+
+        <a routerLink="/auth/register">
+          Crear una cuenta
+          <i aria-hidden="true"></i>
+        </a>
+      </footer>
+    </article>
+
+    <footer class="auth-page__footer">
+      <span>© 2026 DesoftSantiago</span>
+      <i aria-hidden="true"></i>
+      <span>ProjectOps MVP</span>
+    </footer>
+  </section>
+
+  <aside class="auth-page__status" aria-label="Estado del sistema">
+    <span aria-hidden="true"></span>
+    <strong>System Status: Stable</strong>
+  </aside>
+</main>

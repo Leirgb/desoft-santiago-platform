@@ -1,0 +1,26 @@
+<article
+  class="metric-card"
+  [class]="'metric-card metric-card--' + metric().tone"
+>
+  <header class="metric-card__header">
+    <span class="metric-card__label">
+      {{ metric().label }}
+    </span>
+
+    <span class="metric-card__icon" aria-hidden="true">
+      <mat-icon>{{ metric().icon }}</mat-icon>
+    </span>
+  </header>
+
+  <strong class="metric-card__value">
+    {{ metric().value }}
+  </strong>
+
+  <footer class="metric-card__footer">
+    <span>{{ metric().description }}</span>
+
+    @if (metric().trend) {
+      <small>{{ metric().trend }}</small>
+    }
+  </footer>
+</article>

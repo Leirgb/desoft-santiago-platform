@@ -1,0 +1,118 @@
+<section class="ds-page users-page" aria-labelledby="users-title">
+  <header class="users-page__header">
+    <div>
+      <p class="users-page__eyebrow">Gestión del equipo</p>
+
+      <h1 id="users-title" class="ds-page-title">
+        Equipo
+      </h1>
+
+      <p class="ds-page-subtitle">
+        Administra usuarios, roles de acceso, funciones, estado e invitaciones.
+      </p>
+    </div>
+
+    @if (canCreateUser()) {
+      <button
+        class="ds-gradient-button"
+        mat-flat-button
+        type="button"
+        (click)="onCreateMember()"
+      >
+        <mat-icon aria-hidden="true">person_add</mat-icon>
+        Agregar miembro
+      </button>
+    }
+  </header>
+
+  <section class="users-page__summary" aria-label="Resumen del equipo">
+    <article>
+      <span>Miembros activos</span>
+      <strong>{{ activeMembersCount() }}</strong>
+    </article>
+
+    <article>
+      <span>Desempeño promedio</span>
+      <strong>{{ averagePerformance() }}%</strong>
+    </article>
+
+    <article>
+      <span>Miembros listados</span>
+      <strong>{{ members().length }}</strong>
+    </article>
+  </section>
+
+  <section class="users-page__toolbar" aria-label="Filtros del equipo">
+    <form class="users-page__search" role="search" aria-label="Buscar miembros">
+      <mat-icon aria-hidden="true">search</mat-icon>
+
+      <label class="visually-hidden" for="member-search">
+        Buscar miembros
+      </label>
+
+      <input
+        id="member-search"
+        type="search"
+        name="memberSearch"
+        placeholder="Buscar por nombre, correo, departamento, rol o habilidad..."
+        [ngModel]="searchTerm()"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </form>
+
+    <mat-select
+      class="users-page__select"
+      aria-label="Filtrar por rol de acceso"
+      [ngModel]="selectedRole()"
+      (ngModelChange)="onRoleChange($event)"
+    >
+      <mat-option value="ALL">Todos los roles</mat-option>
+      <mat-option value="ADMIN">Administrador</mat-option>
+      <mat-option value="MANAGER">Jefe de proyecto</mat-option>
+      <mat-option value="MEMBER">Miembro del equipo</mat-option>
+    </mat-select>
+
+    <mat-select
+      class="users-page__select"
+      aria-label="Filtrar por estado"
+      [ngModel]="selectedStatus()"
+      (ngModelChange)="onStatusChange($event)"
+    >
+      <mat-option value="ALL">Todos</mat-option>
+      <mat-option value="PENDING_INVITATION">Invitación pendiente</mat-option>
+      <mat-option value="ACTIVE">Activos</mat-option>
+      <mat-option value="INACTIVE">Inactivos</mat-option>
+      <mat-option value="BLOCKED">Bloqueados</mat-option>
+    </mat-select>
+  </section>
+
+  @if (members().length > 0) {
+    <section class="users-page__grid" aria-label="Listado de miembros">
+      @for (member of members(); track member.id) {
+        <app-team-member-card
+          [member]="member"
+          [canEdit]="canUpdateUser()"
+          [canDelete]="canDeleteUser()"
+          [canManageAccess]="canManageAccess()"
+          (editMember)="onEditMember($event)"
+          (deleteMember)="onDeleteMember($event)"
+          (sendInvitation)="onSendInvitation($event)"
+          (resetAccess)="onResetAccess($event)"
+          (toggleStatus)="onToggleStatus($event)"
+        />
+      }
+    </section>
+  } @else {
+    <section class="users-page__empty" aria-label="Sin miembros">
+      <mat-icon aria-hidden="true">groups</mat-icon>
+      <h2>No se encontraron miembros</h2>
+      <p>Ajusta los filtros o agrega un nuevo miembro al equipo.</p>
+
+      @if (canCreateUser()) {
+        <button class="ds-gradient-button" type="button" (click)="onCreateMember()">
+          Agregar miembro
+        </button>
+      }
+    </section>
+  }
+</section>

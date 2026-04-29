@@ -1,0 +1,97 @@
+<section class="ds-page dashboard-page" aria-labelledby="dashboard-title">
+  <header class="dashboard-page__header">
+    <div>
+      <p class="dashboard-page__eyebrow">Resumen operativo</p>
+
+      <h1 id="dashboard-title" class="ds-page-title">
+        Dashboard principal
+      </h1>
+
+      <p class="ds-page-subtitle">
+        Bienvenido de nuevo. Revisa el estado actual de proyectos, tareas, equipo y desempeño.
+      </p>
+    </div>
+
+    @if (canCreateProject()) {
+    <button class="ds-gradient-button" mat-flat-button type="button" (click)="onCreateProject()">
+      <mat-icon aria-hidden="true">add</mat-icon>
+      Nuevo proyecto
+    </button>
+    }
+  </header>
+
+  <section class="dashboard-page__metrics" aria-label="Métricas principales">
+    @for (metric of viewModel().metrics; track metric.label) {
+    <app-metric-card [metric]="metric" />
+    }
+  </section>
+
+  <section class="dashboard-page__content" aria-label="Actividad y avance">
+    <article class="ds-card dashboard-panel dashboard-panel--wide">
+      <header class="dashboard-panel__header">
+        <div>
+          <h2>Proyectos destacados</h2>
+          <p>Seguimiento de iniciativas con mayor avance.</p>
+        </div>
+
+        <button mat-button type="button" (click)="onViewProjects()">
+          Ver todos
+        </button>
+      </header>
+
+      @if (viewModel().featuredProjects.length > 0) {
+      <ul class="project-list" aria-label="Lista de proyectos destacados">
+        @for (project of viewModel().featuredProjects; track project.id) {
+        <li>
+          <div class="project-list__info">
+            <strong>{{ project.name }}</strong>
+            <span>{{ project.owner }} · {{ project.status }}</span>
+          </div>
+
+          <div class="project-progress" [attr.aria-label]="'Avance de ' + project.name + ': ' + project.progress + '%'">
+            <span>{{ project.progress }}%</span>
+
+            <div class="project-progress__bar">
+              <i [style.width.%]="project.progress"></i>
+            </div>
+          </div>
+        </li>
+        }
+      </ul>
+      } @else {
+      <article class="dashboard-panel__empty">
+        <mat-icon aria-hidden="true">folder_off</mat-icon>
+        <p>No hay proyectos registrados.</p>
+      </article>
+      }
+    </article>
+
+    <article class="ds-card dashboard-panel">
+      <header class="dashboard-panel__header">
+        <div>
+          <h2>Actividad reciente</h2>
+          <p>Últimos movimientos derivados de las tareas.</p>
+        </div>
+
+        <button mat-button type="button" (click)="onViewTasks()">
+          Ver tareas
+        </button>
+      </header>
+
+      <ol class="activity-list" aria-label="Actividad reciente">
+        @for (activity of viewModel().recentActivity; track activity.id) {
+        <li>
+          <span class="activity-list__icon" aria-hidden="true">
+            <mat-icon>{{ activity.icon }}</mat-icon>
+          </span>
+
+          <div>
+            <strong>{{ activity.description }}</strong>
+            <small>{{ activity.meta }}</small>
+          </div>
+        </li>
+        }
+      </ol>
+    </article>
+  </section>
+</section>

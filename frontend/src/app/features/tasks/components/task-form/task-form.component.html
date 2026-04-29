@@ -1,0 +1,138 @@
+<section class="task-dialog" aria-labelledby="task-dialog-title">
+  <header class="task-dialog__header">
+    <div>
+      <p class="task-dialog__eyebrow">Gestión de tareas</p>
+
+      <h2 id="task-dialog-title">
+        {{ dialogTitle }}
+      </h2>
+
+      <p>
+        {{ dialogSubtitle }}
+      </p>
+    </div>
+  </header>
+
+  <form class="task-form" [formGroup]="form" (ngSubmit)="submit()">
+    <mat-dialog-content class="task-dialog__content">
+      <mat-form-field appearance="outline">
+        <mat-label>Título</mat-label>
+        <input matInput formControlName="title" />
+
+        @if (controls.title.hasError('required') && controls.title.touched) {
+          <mat-error>El título de la tarea es obligatorio.</mat-error>
+        }
+
+        @if (controls.title.hasError('minlength') && controls.title.touched) {
+          <mat-error>El título debe tener al menos 3 caracteres.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="task-form__full">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput rows="3" formControlName="description"></textarea>
+
+        @if (controls.description.hasError('required') && controls.description.touched) {
+          <mat-error>La descripción es obligatoria.</mat-error>
+        }
+
+        @if (controls.description.hasError('minlength') && controls.description.touched) {
+          <mat-error>La descripción debe tener al menos 10 caracteres.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Proyecto</mat-label>
+        <mat-select formControlName="projectId">
+          @for (project of projects; track project.id) {
+            <mat-option [value]="project.id">
+              {{ project.name }}
+            </mat-option>
+          }
+        </mat-select>
+
+        @if (controls.projectId.hasError('required') && controls.projectId.touched) {
+          <mat-error>Selecciona el proyecto asociado.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Responsable</mat-label>
+        <mat-select formControlName="assigneeName">
+          @for (member of activeMembers(); track member.id) {
+            <mat-option [value]="member.fullName">
+              {{ member.fullName }}
+            </mat-option>
+          }
+        </mat-select>
+
+        @if (controls.assigneeName.hasError('required') && controls.assigneeName.touched) {
+          <mat-error>Selecciona un responsable.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Prioridad</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option value="LOW">Baja</mat-option>
+          <mat-option value="MEDIUM">Media</mat-option>
+          <mat-option value="HIGH">Alta</mat-option>
+          <mat-option value="CRITICAL">Crítica</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="TODO">Por hacer</mat-option>
+          <mat-option value="IN_PROGRESS">En progreso</mat-option>
+          <mat-option value="REVIEW">En revisión</mat-option>
+          <mat-option value="DONE">Completado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha límite</mat-label>
+        <input
+          matInput
+          type="date"
+          formControlName="dueDate"
+          [min]="today"
+          (change)="validateDueDate()"
+        />
+
+        @if (controls.dueDate.hasError('required') && controls.dueDate.touched) {
+          <mat-error>La fecha límite es obligatoria.</mat-error>
+        }
+
+        @if (controls.dueDate.hasError('pastDate') && controls.dueDate.touched) {
+          <mat-error>La fecha límite no puede ser anterior al día actual.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Etiquetas</mat-label>
+        <input matInput formControlName="tags" placeholder="Angular, Kanban, MVP" />
+
+        @if (controls.tags.hasError('required') && controls.tags.touched) {
+          <mat-error>Indica al menos una etiqueta.</mat-error>
+        }
+      </mat-form-field>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="task-dialog__actions" align="end">
+      <button mat-button type="button" (click)="cancel()">
+        Cancelar
+      </button>
+
+      <button
+        class="ds-gradient-button"
+        mat-flat-button
+        type="submit"
+        [disabled]="!canSubmit()"
+      >
+        Guardar tarea
+      </button>
+    </mat-dialog-actions>
+  </form>
+</section>

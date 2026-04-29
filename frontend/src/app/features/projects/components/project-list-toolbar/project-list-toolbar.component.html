@@ -1,0 +1,42 @@
+<section class="project-toolbar" aria-label="Herramientas de proyectos">
+  <form class="project-toolbar__search" role="search" aria-label="Buscar proyectos">
+    <mat-icon aria-hidden="true">search</mat-icon>
+
+    <label class="visually-hidden" for="project-search">
+      Buscar proyectos
+    </label>
+
+    <input
+      id="project-search"
+      type="search"
+      name="projectSearch"
+      placeholder="Buscar por nombre, responsable o tecnología..."
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearchChange()"
+    />
+  </form>
+
+  <mat-select
+    class="project-toolbar__select"
+    aria-label="Filtrar por estado"
+    [(ngModel)]="selectedStatus"
+    (selectionChange)="onStatusChange()"
+  >
+    <mat-option value="ALL">Todos</mat-option>
+    <mat-option value="ACTIVE">Activos</mat-option>
+    <mat-option value="PAUSED">Pausados</mat-option>
+    <mat-option value="COMPLETED">Completados</mat-option>
+  </mat-select>
+
+  @if (canCreateProject()) {
+    <button
+      class="ds-gradient-button"
+      mat-flat-button
+      type="button"
+      (click)="createProject.emit()"
+    >
+      <mat-icon aria-hidden="true">add</mat-icon>
+      Nuevo proyecto
+    </button>
+  }
+</section>

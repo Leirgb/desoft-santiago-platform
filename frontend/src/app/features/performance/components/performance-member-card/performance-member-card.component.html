@@ -1,0 +1,62 @@
+<article class="performance-card">
+  <header class="performance-card__header">
+    <div class="performance-card__avatar" aria-hidden="true">
+      {{ initials() }}
+    </div>
+
+    <div class="performance-card__identity">
+      <h2>{{ metric.member.fullName }}</h2>
+      <p>{{ metric.member.department }}</p>
+    </div>
+
+    <span
+      class="performance-card__level"
+      [class.performance-card__level--medium]="metric.level === 'MEDIUM'"
+      [class.performance-card__level--low]="metric.level === 'LOW'"
+    >
+      {{ levelLabel(metric.level) }}
+    </span>
+  </header>
+
+  <section class="performance-card__score" aria-label="Puntuación de desempeño">
+    <div>
+      <span>Puntuación final</span>
+      <strong>{{ metric.finalScore }}%</strong>
+    </div>
+
+    <div class="performance-card__progress">
+      <i [style.width.%]="metric.finalScore"></i>
+    </div>
+  </section>
+
+  <section class="performance-card__metrics" aria-label="Métricas del usuario">
+    <article>
+      <mat-icon aria-hidden="true">assignment</mat-icon>
+      <span>Asignadas</span>
+      <strong>{{ metric.assignedTasks }}</strong>
+    </article>
+
+    <article>
+      <mat-icon aria-hidden="true">check_circle</mat-icon>
+      <span>Completadas</span>
+      <strong>{{ metric.completedTasks }}</strong>
+    </article>
+
+    <article>
+      <mat-icon aria-hidden="true">pending_actions</mat-icon>
+      <span>Pendientes</span>
+      <strong>{{ metric.pendingTasks }}</strong>
+    </article>
+
+    <article>
+      <mat-icon aria-hidden="true">warning</mat-icon>
+      <span>Vencidas</span>
+      <strong>{{ metric.overdueTasks }}</strong>
+    </article>
+  </section>
+
+  <footer class="performance-card__footer">
+    <span>Cumplimiento: {{ metric.completionRate }}%</span>
+    <span>Carga: {{ metric.workloadScore }}%</span>
+  </footer>
+</article>

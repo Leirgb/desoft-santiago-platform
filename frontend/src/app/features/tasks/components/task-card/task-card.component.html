@@ -1,0 +1,87 @@
+<article class="task-card">
+  <header class="task-card__header">
+    <span
+      class="task-card__priority"
+      [class]="'task-card__priority task-card__priority--' + task().priority.toLowerCase()"
+    >
+      {{ priorityLabel(task().priority) }}
+    </span>
+
+    <span class="task-card__status">
+      {{ statusLabel(task().status) }}
+    </span>
+  </header>
+
+  <h3>{{ task().title }}</h3>
+
+  <p>{{ task().description }}</p>
+
+  <section class="task-card__meta" aria-label="Datos de la tarea">
+    <div>
+      <mat-icon aria-hidden="true">folder</mat-icon>
+      <span>{{ task().projectName }}</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">person</mat-icon>
+      <span>{{ task().assigneeName }}</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">event</mat-icon>
+      <span>{{ task().dueDate }}</span>
+    </div>
+  </section>
+
+  <ul class="task-card__tags" aria-label="Etiquetas de la tarea">
+    @for (tag of task().tags; track tag) {
+      <li>{{ tag }}</li>
+    }
+  </ul>
+
+  @if (canUpdate() || canDelete()) {
+    <footer class="task-card__footer">
+      @if (canUpdate()) {
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Mover a estado anterior"
+          [disabled]="!canMovePrevious(task().status)"
+          (click)="movePrevious()"
+        >
+          <mat-icon>chevron_left</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Mover a estado siguiente"
+          [disabled]="!canMoveNext(task().status)"
+          (click)="moveNext()"
+        >
+          <mat-icon>chevron_right</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Editar tarea"
+          (click)="editTask.emit(task())"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      }
+
+      @if (canDelete()) {
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Eliminar tarea"
+          (click)="deleteTask.emit(task().id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
+    </footer>
+  }
+</article>

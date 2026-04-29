@@ -1,0 +1,29 @@
+<section class="kanban-column" [attr.aria-label]="title()">
+  <header class="kanban-column__header">
+    <div>
+      <h2>{{ title() }}</h2>
+      <p>{{ description() }}</p>
+    </div>
+
+    <strong>{{ tasks().length }}</strong>
+  </header>
+
+  <div class="kanban-column__body">
+    @if (tasks().length > 0) {
+      @for (task of tasks(); track task.id) {
+        <app-task-card
+          [task]="task"
+          [canUpdate]="canUpdateTask()"
+          [canDelete]="canDeleteTask()"
+          (editTask)="editTask.emit($event)"
+          (deleteTask)="deleteTask.emit($event)"
+          (statusChanged)="statusChanged.emit($event)"
+        />
+      }
+    } @else {
+      <article class="kanban-column__empty">
+        Sin tareas en esta columna
+      </article>
+    }
+  </div>
+</section>

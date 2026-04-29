@@ -1,0 +1,68 @@
+import { Project } from '../models/project.model';
+
+export const PROJECTS_MOCK: Project[] = [
+  {
+    id: 'project-1',
+    name: 'Sistema de Gestión Interna',
+    description:
+      'Plataforma para organizar proyectos, tareas, responsables y desempeño del equipo técnico.',
+    status: 'ACTIVE',
+    priority: 'HIGH',
+    progress: 78,
+    tasksCount: 32,
+    completedTasksCount: 25,
+    membersCount: 8,
+    owner: 'Equipo Backend',
+    startDate: '2026-04-20',
+    dueDate: '2026-05-05',
+    technologies: ['NestJS', 'Angular', 'PostgreSQL'],
+  },
+  {
+    id: 'project-2',
+    name: 'Portal de Servicios Digitales',
+    description:
+      'Portal institucional para centralizar solicitudes, servicios y seguimiento operativo.',
+    status: 'ACTIVE',
+    priority: 'MEDIUM',
+    progress: 62,
+    tasksCount: 28,
+    completedTasksCount: 17,
+    membersCount: 6,
+    owner: 'Equipo Frontend',
+    startDate: '2026-04-18',
+    dueDate: '2026-05-12',
+    technologies: ['Angular', 'Material', 'Signals'],
+  },
+  {
+    id: 'project-3',
+    name: 'Modernización de Reportes',
+    description:
+      'Módulo para visualizar métricas ejecutivas y reportes internos de avance.',
+    status: 'PAUSED',
+    priority: 'MEDIUM',
+    progress: 45,
+    tasksCount: 18,
+    completedTasksCount: 8,
+    membersCount: 4,
+    owner: 'Equipo BI',
+    startDate: '2026-04-15',
+    dueDate: '2026-05-20',
+    technologies: ['Charts', 'API REST', 'PostgreSQL'],
+  },
+  {
+    id: 'project-4',
+    name: 'Evaluación de Desempeño Técnico',
+    description:
+      'Vista para analizar cumplimiento, participación y tareas completadas por usuario.',
+    status: 'ACTIVE',
+    priority: 'HIGH',
+    progress: 38,
+    tasksCount: 14,
+    completedTasksCount: 5,
+    membersCount: 5,
+    owner: 'Equipo ProjectOps',
+    startDate: '2026-04-22',
+    dueDate: '2026-05-07',
+    technologies: ['Angular', 'Signals', 'NestJS'],
+  },
+];

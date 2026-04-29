@@ -1,0 +1,170 @@
+.performance-card {
+  width: 100%;
+  min-width: 0;
+  padding: 22px;
+  border-radius: var(--ds-radius-lg);
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  box-shadow: var(--ds-shadow-sm);
+  display: grid;
+  gap: 18px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--ds-shadow-md);
+  }
+}
+
+.performance-card__header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.performance-card__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, var(--ds-primary-700), var(--ds-indigo));
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.performance-card__identity {
+  min-width: 0;
+
+  h2 {
+    margin: 0;
+    font-family: Manrope, Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    color: var(--ds-text);
+    overflow-wrap: anywhere;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: var(--ds-muted);
+    font-size: 13px;
+    overflow-wrap: anywhere;
+  }
+}
+
+.performance-card__level {
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--ds-success);
+  background: rgba(46, 125, 50, 0.1);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.performance-card__level--medium {
+  color: #8a5200;
+  background: rgba(237, 155, 33, 0.14);
+}
+
+.performance-card__level--low {
+  color: var(--ds-error);
+  background: rgba(186, 26, 26, 0.1);
+}
+
+.performance-card__score {
+  > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+
+    span {
+      color: var(--ds-muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    strong {
+      color: var(--ds-primary-700);
+      font-weight: 900;
+    }
+  }
+}
+
+.performance-card__progress {
+  height: 9px;
+  border-radius: 999px;
+  background: #dfe8e3;
+  overflow: hidden;
+
+  i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(135deg, var(--ds-primary-700), var(--ds-indigo));
+  }
+}
+
+.performance-card__metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+
+  article {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 14px;
+    background: var(--ds-surface-soft);
+    display: grid;
+    gap: 4px;
+  }
+
+  mat-icon {
+    color: var(--ds-primary-700);
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+
+  span {
+    color: var(--ds-muted);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  strong {
+    font-family: Manrope, Inter, sans-serif;
+    font-size: 22px;
+    color: var(--ds-primary-700);
+  }
+}
+
+.performance-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  span {
+    padding: 6px 9px;
+    border-radius: 999px;
+    background: var(--ds-surface-soft);
+    color: var(--ds-muted);
+    font-size: 12px;
+    font-weight: 800;
+  }
+}
+
+@media (max-width: 520px) {
+  .performance-card__header {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .performance-card__level {
+    grid-column: 1 / -1;
+    width: fit-content;
+  }
+}

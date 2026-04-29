@@ -1,0 +1,259 @@
+html,
+body {
+  min-height: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+html {
+  color-scheme: light;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background: var(--ds-bg);
+  color: var(--ds-text);
+  font-family: Inter, Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ds-page {
+  width: 100%;
+  min-width: 0;
+  padding: 24px;
+}
+
+.ds-card {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-border);
+  border-radius: var(--ds-radius-lg);
+  box-shadow: var(--ds-shadow-sm);
+}
+
+.ds-page-title {
+  margin: 0;
+  font-family: Manrope, Inter, sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--ds-text);
+}
+
+.ds-page-subtitle {
+  margin: 6px 0 0;
+  color: var(--ds-muted);
+  font-size: 14px;
+}
+
+.ds-gradient-button {
+  background: linear-gradient(135deg, var(--ds-primary-700), var(--ds-indigo)) !important;
+  color: #ffffff !important;
+}
+
+mat-icon,
+.mat-icon,
+.material-icons,
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined' !important;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+}
+
+.ds-task-dialog-panel {
+  width: min(860px, calc(100vw - 32px)) !important;
+  max-width: 960px !important;
+}
+
+.ds-task-dialog-panel .mat-mdc-dialog-container {
+  --mdc-dialog-container-shape: 24px;
+}
+
+.ds-task-dialog-panel .mat-mdc-dialog-surface,
+.ds-task-dialog-panel .mdc-dialog__surface {
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  background: var(--ds-surface) !important;
+  box-shadow: 0 28px 80px rgba(6, 27, 58, 0.26) !important;
+}
+
+.cdk-overlay-pane.ds-task-dialog-panel {
+  max-width: calc(100vw - 32px) !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(31, 122, 224, 0.35);
+  outline-offset: 3px;
+}
+
+@media (max-width: 720px) {
+  .ds-page {
+    padding: 18px;
+  }
+
+  .ds-task-dialog-panel {
+    width: calc(100vw - 24px) !important;
+  }
+
+  .ds-task-dialog-panel .mat-mdc-dialog-surface,
+  .ds-task-dialog-panel .mdc-dialog__surface {
+    border-radius: 20px !important;
+  }
+}
+.ds-swal-popup {
+  width: min(430px, calc(100vw - 32px)) !important;
+  border-radius: 28px !important;
+  padding: 28px !important;
+  background: var(--ds-surface) !important;
+  box-shadow: 0 28px 80px rgba(6, 27, 58, 0.26) !important;
+}
+
+.ds-swal-title {
+  font-family: Manrope, Inter, sans-serif !important;
+  color: var(--ds-text) !important;
+  font-size: 24px !important;
+  font-weight: 900 !important;
+}
+
+.ds-swal-text {
+  color: var(--ds-muted) !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+.ds-swal-icon {
+  margin-top: 8px !important;
+}
+
+.ds-swal-actions {
+  gap: 12px !important;
+  margin-top: 24px !important;
+}
+
+.ds-swal-button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 14px;
+  font-family: Inter, sans-serif;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background-color 0.18s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+.ds-swal-button--primary {
+  background: linear-gradient(135deg, var(--ds-primary-700), var(--ds-indigo));
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(11, 63, 138, 0.24);
+}
+
+.ds-swal-button--danger {
+  background: var(--ds-error);
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(186, 26, 26, 0.18);
+}
+
+.ds-swal-button--secondary {
+  background: var(--ds-surface-soft);
+  color: var(--ds-text);
+}
+
+.ds-swal-toast {
+  border-radius: 16px !important;
+  box-shadow: var(--ds-shadow-md) !important;
+  font-family: Inter, sans-serif !important;
+}
+
+@media (max-width: 520px) {
+  .ds-swal-popup {
+    width: calc(100vw - 24px) !important;
+    padding: 24px 18px !important;
+    border-radius: 22px !important;
+  }
+
+  .ds-swal-actions {
+    width: 100%;
+    display: grid !important;
+    grid-template-columns: 1fr;
+  }
+
+  .ds-swal-button {
+    width: 100%;
+  }
+}
+.ds-swal-container,
+.swal2-container {
+  z-index: 30000 !important;
+}
+
+.ds-gradient-button[disabled],
+.ds-gradient-button.mat-mdc-button-disabled,
+button[disabled] {
+  opacity: 0.52 !important;
+  filter: grayscale(0.2);
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+}
+
+.ds-gradient-button:not([disabled]) {
+  box-shadow: 0 14px 30px rgba(11, 63, 138, 0.26);
+}

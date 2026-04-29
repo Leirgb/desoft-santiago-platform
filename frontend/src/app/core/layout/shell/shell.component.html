@@ -1,0 +1,30 @@
+<div class="app-shell">
+  <a class="skip-link" href="#contenido-principal">
+    Saltar al contenido principal
+  </a>
+
+  <app-sidebar
+    [opened]="sidebarOpened()"
+    (closeSidebar)="closeSidebar()"
+  ></app-sidebar>
+
+  <button
+    type="button"
+    class="app-shell__backdrop"
+    [class.app-shell__backdrop--visible]="sidebarOpened()"
+    aria-label="Cerrar menú lateral"
+    (click)="closeSidebar()"
+  ></button>
+
+  <div class="app-shell__workspace">
+    <app-topbar (menuClicked)="openSidebar()"></app-topbar>
+
+    <main
+      id="contenido-principal"
+      class="app-shell__main"
+      tabindex="-1"
+    >
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<header class="topbar" aria-label="Barra superior">
+  <button mat-icon-button type="button" class="topbar__menu-button" aria-label="Abrir menú lateral"
+    (click)="menuClicked.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <form class="topbar__search" role="search" aria-label="Búsqueda global">
+    <mat-icon aria-hidden="true">search</mat-icon>
+
+    <label class="visually-hidden" for="global-search">
+      Buscar proyectos, tareas o miembros
+    </label>
+
+    <input id="global-search" type="search" name="globalSearch" placeholder="Buscar proyectos, tareas o miembros..."
+      autocomplete="off" />
+  </form>
+
+  <section class="topbar__actions" aria-label="Acciones de usuario">
+    <button mat-icon-button type="button" aria-label="Ver notificaciones">
+      <mat-icon>notifications</mat-icon>
+    </button>
+
+    <article class="topbar__user" aria-label="Usuario autenticado">
+      <div class="topbar__avatar" aria-hidden="true">
+        {{ userName().charAt(0) }}
+      </div>
+
+      <div class="topbar__user-info">
+        <strong>{{ userName() }}</strong>
+        <span>{{ userRoleLabel() }}</span>
+      </div>
+    </article>
+
+    <button mat-button type="button" class="topbar__logout" (click)="logout()">
+      Salir
+    </button>
+  </section>
+</header>

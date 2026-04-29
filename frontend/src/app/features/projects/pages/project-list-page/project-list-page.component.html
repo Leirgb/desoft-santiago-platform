@@ -1,0 +1,56 @@
+<section class="ds-page projects-page" aria-labelledby="projects-title">
+  <header class="projects-page__header">
+    <div>
+      <p class="projects-page__eyebrow">Gestión operativa</p>
+
+      <h1 id="projects-title" class="ds-page-title">
+        Proyectos
+      </h1>
+
+      <p class="ds-page-subtitle">
+        Gestiona iniciativas de desarrollo, mantenimiento e informatización.
+      </p>
+    </div>
+
+    <aside class="projects-page__summary" aria-label="Resumen de proyectos activos">
+      <strong>{{ activeProjectsCount() }}</strong>
+      <span>proyectos activos</span>
+    </aside>
+  </header>
+
+  <app-project-list-toolbar
+    [canCreateProject]="canCreateProject()"
+    (searchChanged)="onSearchChanged($event)"
+    (statusChanged)="onStatusChanged($event)"
+    (createProject)="onCreateProject()"
+  />
+
+  @if (projects().length > 0) {
+    <section class="projects-page__grid" aria-label="Listado de proyectos">
+      @for (project of projects(); track project.id) {
+        <app-project-card
+          [project]="project"
+          [canEdit]="canUpdateProject()"
+          [canDelete]="canDeleteProject()"
+          [canOpenBoard]="canReadTasks()"
+          (openProject)="onOpenProject($event)"
+          (editProject)="onEditProject($event)"
+          (deleteProject)="onDeleteProject($event)"
+          (openBoard)="onOpenBoard($event)"
+        />
+      }
+    </section>
+  } @else {
+    <section class="projects-page__empty" aria-label="Sin proyectos">
+      <mat-icon aria-hidden="true">folder_off</mat-icon>
+      <h2>No se encontraron proyectos</h2>
+      <p>Ajusta los filtros o crea un nuevo proyecto para comenzar.</p>
+
+      @if (canCreateProject()) {
+        <button class="ds-gradient-button" type="button" (click)="onCreateProject()">
+          Crear proyecto
+        </button>
+      }
+    </section>
+  }
+</section>

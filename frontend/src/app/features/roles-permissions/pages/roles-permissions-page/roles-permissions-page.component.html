@@ -1,0 +1,78 @@
+<section class="ds-page roles-page" aria-labelledby="roles-title">
+  <header class="roles-page__header">
+    <div>
+      <p class="roles-page__eyebrow">Control de acceso</p>
+
+      <h1 id="roles-title" class="ds-page-title">
+        Roles y permisos
+      </h1>
+
+      <p class="ds-page-subtitle">
+        Consulta cómo se comporta la aplicación según el rol activo del usuario.
+      </p>
+    </div>
+
+    <aside class="roles-page__current-role" aria-label="Rol actual">
+      <span>Rol actual</span>
+      <strong>{{ roleLabel(currentRole()) }}</strong>
+    </aside>
+  </header>
+
+  <section class="roles-page__cards" aria-label="Roles del sistema">
+    @for (role of roleCards; track role.role) {
+      <article
+        class="role-card"
+        [class.role-card--active]="isCurrentRole(role.role)"
+      >
+        <mat-icon aria-hidden="true">{{ role.icon }}</mat-icon>
+
+        <div>
+          <h2>{{ role.label }}</h2>
+          <p>{{ role.description }}</p>
+        </div>
+
+        @if (isCurrentRole(role.role)) {
+          <span>Activo</span>
+        }
+      </article>
+    }
+  </section>
+
+  <article class="ds-card roles-page__matrix">
+    <header>
+      <h2>Matriz de permisos del MVP</h2>
+      <p>
+        Esta matriz resume qué acciones puede realizar cada rol dentro del
+        frontend actual.
+      </p>
+    </header>
+
+    <div class="roles-page__table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Módulo</th>
+            <th>Descripción</th>
+            <th>Administrador</th>
+            <th>Jefe de proyecto</th>
+            <th>Miembro</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (row of permissionRows; track row.module) {
+            <tr>
+              <td>
+                <strong>{{ row.module }}</strong>
+              </td>
+              <td>{{ row.description }}</td>
+              <td>{{ row.admin }}</td>
+              <td>{{ row.manager }}</td>
+              <td>{{ row.member }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </article>
+</section>

@@ -1,0 +1,105 @@
+<article class="member-card">
+  <header class="member-card__header">
+    <div class="member-card__avatar" aria-hidden="true">
+      {{ initials() }}
+    </div>
+
+    <div class="member-card__identity">
+      <h2>{{ member.fullName }}</h2>
+      <p>{{ member.email }}</p>
+    </div>
+
+    <span
+      class="member-card__status"
+      [class.member-card__status--inactive]="member.status !== 'ACTIVE'"
+    >
+      {{ statusLabel(member.status) }}
+    </span>
+  </header>
+
+  <section class="member-card__body" aria-label="Información del miembro">
+    <div>
+      <mat-icon aria-hidden="true">admin_panel_settings</mat-icon>
+      <span>{{ accessRoleLabel(member.accessRole) }}</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">badge</mat-icon>
+      <span>{{ functionalRoleLabel(member.functionalRole) }}</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">business</mat-icon>
+      <span>{{ member.department }}</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">folder_open</mat-icon>
+      <span>{{ member.assignedProjects }} proyectos asignados</span>
+    </div>
+  </section>
+
+  <section class="member-card__performance" aria-label="Desempeño del miembro">
+    <div>
+      <span>Desempeño</span>
+      <strong>{{ member.performanceScore }}%</strong>
+    </div>
+
+    <div class="member-card__progress">
+      <i [style.width.%]="member.performanceScore"></i>
+    </div>
+  </section>
+
+  <section class="member-card__tasks" aria-label="Resumen de tareas">
+    <article>
+      <span>Completadas</span>
+      <strong>{{ member.completedTasks }}</strong>
+    </article>
+
+    <article>
+      <span>Pendientes</span>
+      <strong>{{ member.pendingTasks }}</strong>
+    </article>
+  </section>
+
+  <ul class="member-card__skills" aria-label="Habilidades">
+    @for (skill of member.skills; track skill) {
+      <li>{{ skill }}</li>
+    }
+  </ul>
+
+  @if (canEdit || canDelete || canManageAccess) {
+    <footer class="member-card__actions">
+      @if (canEdit) {
+        <button mat-button type="button" (click)="editMember.emit(member)">
+          Editar
+        </button>
+      }
+
+      @if (canManageAccess) {
+        <button mat-button type="button" (click)="sendInvitation.emit(member)">
+          Invitar
+        </button>
+
+        <button mat-button type="button" (click)="resetAccess.emit(member)">
+          Restablecer acceso
+        </button>
+
+        <button mat-button type="button" (click)="toggleStatus.emit(member)">
+          {{ member.status === 'ACTIVE' ? 'Desactivar' : 'Activar' }}
+        </button>
+      }
+
+      @if (canDelete) {
+        <button
+          mat-icon-button
+          type="button"
+          aria-label="Eliminar miembro"
+          (click)="deleteMember.emit(member.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      }
+    </footer>
+  }
+</article>

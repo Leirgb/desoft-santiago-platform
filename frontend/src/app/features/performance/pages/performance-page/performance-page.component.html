@@ -1,0 +1,75 @@
+<section class="ds-page performance-page" aria-labelledby="performance-title">
+  <header class="performance-page__header">
+    <div>
+      <p class="performance-page__eyebrow">Evaluación del equipo</p>
+
+      <h1 id="performance-title" class="ds-page-title">
+        Desempeño
+      </h1>
+
+      <p class="ds-page-subtitle">
+        Evalúa cumplimiento, carga de trabajo, tareas completadas y productividad del equipo.
+      </p>
+    </div>
+  </header>
+
+  <section class="performance-page__summary" aria-label="Resumen de desempeño">
+    <article>
+      <span>Miembros evaluados</span>
+      <strong>{{ summary().totalMembers }}</strong>
+    </article>
+
+    <article>
+      <span>Promedio general</span>
+      <strong>{{ summary().averageScore }}%</strong>
+    </article>
+
+    <article>
+      <span>Alto desempeño</span>
+      <strong>{{ summary().highPerformanceMembers }}</strong>
+    </article>
+
+    <article>
+      <span>Desempeño medio</span>
+      <strong>{{ summary().mediumPerformanceMembers }}</strong>
+    </article>
+
+    <article>
+      <span>Bajo desempeño</span>
+      <strong>{{ summary().lowPerformanceMembers }}</strong>
+    </article>
+  </section>
+
+  <section class="performance-page__toolbar" aria-label="Herramientas de desempeño">
+    <form class="performance-page__search" role="search" aria-label="Buscar desempeño">
+      <mat-icon aria-hidden="true">search</mat-icon>
+
+      <label class="visually-hidden" for="performance-search">
+        Buscar miembro
+      </label>
+
+      <input
+        id="performance-search"
+        type="search"
+        name="performanceSearch"
+        placeholder="Buscar por nombre, correo, departamento o habilidad..."
+        [ngModel]="searchTerm()"
+        (ngModelChange)="onSearchChange($event)"
+      />
+    </form>
+  </section>
+
+  @if (metrics().length > 0) {
+    <section class="performance-page__grid" aria-label="Listado de desempeño">
+      @for (metric of metrics(); track metric.member.id) {
+        <app-performance-member-card [metric]="metric" />
+      }
+    </section>
+  } @else {
+    <section class="performance-page__empty" aria-label="Sin resultados">
+      <mat-icon aria-hidden="true">monitoring</mat-icon>
+      <h2>No se encontraron resultados</h2>
+      <p>Ajusta la búsqueda para consultar el desempeño del equipo.</p>
+    </section>
+  }
+</section>

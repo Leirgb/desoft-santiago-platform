@@ -1,0 +1,128 @@
+.topbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: var(--ds-sidebar-width);
+  z-index: 10;
+  height: var(--ds-topbar-height);
+  padding: 0 24px;
+  border-bottom: 1px solid var(--ds-border);
+  background: rgba(247, 249, 253, 0.9);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.topbar__menu-button {
+  display: none !important;
+  color: var(--ds-primary-700) !important;
+}
+
+.topbar__search {
+  width: min(480px, 48vw);
+  height: 44px;
+  padding: 0 14px;
+  border: 1px solid var(--ds-border);
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--ds-muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  mat-icon {
+    color: var(--ds-muted);
+  }
+
+  input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--ds-text);
+    font: inherit;
+
+    &::placeholder {
+      color: var(--ds-muted);
+    }
+  }
+}
+
+.topbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.topbar__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topbar__avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--ds-primary-700), var(--ds-indigo));
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+}
+
+.topbar__user-info {
+  display: grid;
+  gap: 2px;
+
+  strong {
+    font-size: 14px;
+    line-height: 1.1;
+  }
+
+  span {
+    font-size: 12px;
+    color: var(--ds-muted);
+  }
+}
+
+.topbar__logout {
+  color: var(--ds-primary-700) !important;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .topbar {
+    left: 0;
+    padding-inline: 16px;
+  }
+
+  .topbar__menu-button {
+    display: inline-flex !important;
+  }
+
+  .topbar__search {
+    flex: 1;
+    width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar {
+    gap: 10px;
+  }
+
+  .topbar__search {
+    display: none;
+  }
+
+  .topbar__user-info {
+    display: none;
+  }
+
+  .topbar__logout {
+    display: none !important;
+  }
+}

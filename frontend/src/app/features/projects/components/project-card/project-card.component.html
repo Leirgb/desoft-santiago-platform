@@ -1,0 +1,96 @@
+<article class="project-card">
+  <header class="project-card__header">
+    <div>
+      <span
+        class="project-card__status"
+        [class]="'project-card__status project-card__status--' + project().status.toLowerCase()"
+      >
+        {{ statusLabel(project().status) }}
+      </span>
+
+      <h2>{{ project().name }}</h2>
+    </div>
+
+    <span
+      class="project-card__priority"
+      [class]="'project-card__priority project-card__priority--' + project().priority.toLowerCase()"
+    >
+      {{ priorityLabel(project().priority) }}
+    </span>
+  </header>
+
+  <p class="project-card__description">
+    {{ project().description }}
+  </p>
+
+  <section class="project-card__meta" aria-label="Datos del proyecto">
+    <div>
+      <mat-icon aria-hidden="true">task_alt</mat-icon>
+      <span>{{ project().completedTasksCount }}/{{ project().tasksCount }} tareas</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">groups</mat-icon>
+      <span>{{ project().membersCount }} miembros</span>
+    </div>
+
+    <div>
+      <mat-icon aria-hidden="true">person</mat-icon>
+      <span>{{ project().owner }}</span>
+    </div>
+  </section>
+
+  <section
+    class="project-card__progress"
+    [attr.aria-label]="'Avance del proyecto: ' + project().progress + '%'"
+  >
+    <div>
+      <span>Avance</span>
+      <strong>{{ project().progress }}%</strong>
+    </div>
+
+    <div class="project-card__progress-bar">
+      <i [style.width.%]="project().progress"></i>
+    </div>
+  </section>
+
+  <ul class="project-card__technologies" aria-label="Tecnologías">
+    @for (technology of project().technologies; track technology) {
+      <li>{{ technology }}</li>
+    }
+  </ul>
+
+  <footer class="project-card__footer">
+    <button mat-button type="button" (click)="openProject.emit(project().id)">
+      Ver detalle
+    </button>
+
+    @if (canOpenBoard()) {
+      <button mat-button type="button" (click)="openBoard.emit(project().id)">
+        Tablero
+      </button>
+    }
+
+    @if (canEdit()) {
+      <button
+        mat-icon-button
+        type="button"
+        aria-label="Editar proyecto"
+        (click)="editProject.emit(project().id)"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+    }
+
+    @if (canDelete()) {
+      <button
+        mat-icon-button
+        type="button"
+        aria-label="Eliminar proyecto"
+        (click)="deleteProject.emit(project().id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    }
+  </footer>
+</article>

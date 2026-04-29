@@ -1,0 +1,110 @@
+<section class="ds-page project-detail-page" aria-labelledby="project-detail-title">
+  @if (project(); as projectData) {
+    <header class="project-detail-page__header">
+      <div>
+        <button mat-button type="button" (click)="goBack()">
+          <mat-icon aria-hidden="true">arrow_back</mat-icon>
+          Volver
+        </button>
+
+        <p class="project-detail-page__eyebrow">Detalle del proyecto</p>
+
+        <h1 id="project-detail-title" class="ds-page-title">
+          {{ projectData.name }}
+        </h1>
+
+        <p class="ds-page-subtitle">
+          {{ projectData.description }}
+        </p>
+      </div>
+
+      <div class="project-detail-page__actions">
+        <button mat-button type="button" (click)="openBoard()">
+          Tablero
+        </button>
+
+        <button class="ds-gradient-button" mat-flat-button type="button" (click)="editProject()">
+          Editar proyecto
+        </button>
+      </div>
+    </header>
+
+    <section class="project-detail-grid" aria-label="Resumen del proyecto">
+      <article class="ds-card project-detail-card">
+        <span>Estado</span>
+        <strong>{{ statusLabel(projectData.status) }}</strong>
+      </article>
+
+      <article class="ds-card project-detail-card">
+        <span>Prioridad</span>
+        <strong>{{ priorityLabel(projectData.priority) }}</strong>
+      </article>
+
+      <article class="ds-card project-detail-card">
+        <span>Responsable</span>
+        <strong>{{ projectData.owner }}</strong>
+      </article>
+
+      <article class="ds-card project-detail-card">
+        <span>Miembros</span>
+        <strong>{{ projectData.membersCount }}</strong>
+      </article>
+    </section>
+
+    <article class="ds-card project-detail-progress">
+      <header>
+        <div>
+          <h2>Avance general</h2>
+          <p>
+            {{ projectData.completedTasksCount }} de {{ projectData.tasksCount }}
+            tareas completadas
+          </p>
+        </div>
+
+        <strong>{{ projectData.progress }}%</strong>
+      </header>
+
+      <div class="project-detail-progress__bar">
+        <i [style.width.%]="projectData.progress"></i>
+      </div>
+    </article>
+
+    <section class="project-detail-columns">
+      <article class="ds-card project-detail-section">
+        <h2>Información temporal</h2>
+
+        <dl>
+          <div>
+            <dt>Fecha de inicio</dt>
+            <dd>{{ projectData.startDate }}</dd>
+          </div>
+
+          <div>
+            <dt>Fecha de entrega</dt>
+            <dd>{{ projectData.dueDate }}</dd>
+          </div>
+        </dl>
+      </article>
+
+      <article class="ds-card project-detail-section">
+        <h2>Tecnologías</h2>
+
+        <ul>
+          @for (technology of projectData.technologies; track technology) {
+            <li>{{ technology }}</li>
+          }
+        </ul>
+      </article>
+    </section>
+  } @else {
+    <article class="ds-card project-detail-page__not-found">
+      <mat-icon aria-hidden="true">folder_off</mat-icon>
+      <h1>Proyecto no encontrado</h1>
+      <p>El proyecto solicitado no existe o fue eliminado.</p>
+
+      <button class="ds-gradient-button" mat-flat-button type="button" (click)="goBack()">
+        Volver a proyectos
+      </button>
+    </article>
+  }
+</section>
