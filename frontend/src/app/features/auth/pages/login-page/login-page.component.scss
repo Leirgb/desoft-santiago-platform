@@ -14,13 +14,15 @@
 }
 
 .auth-page__background {
-  position: absolute;
-  inset: 0;
   background:
-    linear-gradient(90deg, rgba(6, 27, 58, 0.72), rgba(6, 27, 58, 0.36)),
-    url('/images/auth/fondo-login-desoft-red-tecnologica.jpg') center / cover no-repeat;
-  opacity: 0.72;
-  transform: scale(1.02);
+    linear-gradient(
+      90deg,
+      rgba(3, 17, 31, 0.74) 0%,
+      rgba(3, 34, 51, 0.48) 42%,
+      rgba(1, 39, 45, 0.52) 100%
+    ),
+    url('../../../../../../public/images/auth/fondo-login-desoft-red-tecnologica.jpg') center/cover no-repeat;
+  transform: scale(1.025);
 }
 
 .auth-page__pattern {
