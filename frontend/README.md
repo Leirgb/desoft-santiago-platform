@@ -1,440 +1,411 @@
-DESOFTSANTIAGO PLATFORM
-========================
+# DesoftSantiago Platform
 
-Plataforma MVP profesional/académica para la gestión de proyectos de software, tareas, usuarios, roles, permisos, desempeño y dashboard ejecutivo.
+Plataforma web para la gestión de proyectos de software, tareas, usuarios, roles, permisos, desempeño y métricas operativas.
 
-Este repositorio está organizado como monorepo simple:
+El repositorio está organizado como un monorepo simple, pensado para evolucionar hacia una solución full-stack con frontend Angular y backend NestJS.
 
+```text
 desoft-santiago-platform/
-  frontend/   Aplicación Angular moderna
-  backend/    Backend NestJS previsto para la siguiente etapa
+├── frontend/   Aplicación web Angular
+└── backend/    Backend previsto para la siguiente etapa
+```
 
-Actualmente el desarrollo funcional está concentrado en la carpeta frontend/.
+> Estado actual: el desarrollo funcional se encuentra en `frontend/`.
 
-------------------------------------------------------------
-1. OBJETIVO DEL PROYECTO
-------------------------------------------------------------
+---
 
-DesoftSantiago ProjectOps es una plataforma orientada a equipos de desarrollo de software. Su objetivo es centralizar en una misma aplicación:
+## 1. Descripción general
 
-- Gestión de proyectos.
-- Gestión de tareas.
-- Tablero Kanban.
-- Gestión de usuarios/equipo.
-- Roles y permisos.
-- Evaluación básica de desempeño.
-- Dashboard con métricas operativas.
-- Flujo de autenticación preparado para integración con backend.
+**DesoftSantiago Platform** es una aplicación orientada a equipos de desarrollo de software. Su propósito es centralizar la operación básica de proyectos, tareas, usuarios y desempeño en una interfaz profesional, moderna y preparada para integrarse posteriormente con un backend real.
 
-El proyecto está pensado como un MVP defendible en contexto académico y profesional, siguiendo buenas prácticas reales de arquitectura frontend.
+La aplicación está construida como un MVP funcional, con enfoque académico/profesional, priorizando claridad arquitectónica, experiencia de usuario, mantenibilidad y posibilidad de crecimiento.
 
-------------------------------------------------------------
-2. STACK TECNOLÓGICO ACTUAL
-------------------------------------------------------------
+---
 
-Frontend:
+## 2. Funcionalidades principales
 
-- Angular 21.
-- Angular Material.
-- SCSS.
-- Angular Signals.
-- Arquitectura standalone.
-- CASL para permisos frontend.
-- SweetAlert2 para confirmaciones, alertas y mensajes humanizados.
-- ESLint con angular-eslint.
-- Prettier.
-- Husky, commitlint y lint-staged preparados para control de calidad.
-- Fuentes autoalojadas.
-- Material Symbols autoalojado.
-- Assets servidos desde public/.
+### Autenticación y acceso
 
-Backend previsto:
-
-- NestJS.
-- TypeORM.
-- PostgreSQL.
-- JWT + refresh tokens.
-- Multi-tenant con Organization.
-- Módulos previstos: Auth, Users, Projects y Tasks.
-
-------------------------------------------------------------
-3. ESTRUCTURA GENERAL DEL FRONTEND
-------------------------------------------------------------
-
-frontend/src/app/
-  core/
-    auth/                 Estado de sesión, guards e interceptor.
-    layout/               Shell principal, sidebar y topbar.
-    models/               Modelos globales.
-    notifications/        NotificationService con SweetAlert2.
-    permissions/          CASL, AbilityService y permissionGuard.
-
-  features/
-    auth/                 Login y registro.
-    dashboard/            Métricas principales.
-    projects/             Listado, detalle y formulario de proyectos.
-    tasks/                Tablero Kanban y formulario de tareas.
-    users/                Gestión del equipo y usuarios.
-    performance/          Evaluación básica de desempeño.
-    roles-permissions/    Vista de matriz de roles y permisos.
-
-  shared/
-    ui/                   Componentes reutilizables de interfaz.
-
-frontend/src/styles/
-  _fonts.scss             Fuentes locales.
-  _tokens.scss            Tokens visuales del sistema.
-  _global.scss            Estilos base globales.
-  _material-theme.scss    Ajustes para Angular Material.
-
-frontend/public/
-  fonts/                  Inter, Manrope y Material Symbols.
-  images/                 Logo, fondos y recursos visuales.
-
-------------------------------------------------------------
-4. DISEÑO Y UX
-------------------------------------------------------------
-
-El diseño está inspirado en una propuesta generada con Stitch, adaptada de forma coherente a Angular Material y al sistema visual del proyecto.
-
-Principios visuales aplicados:
-
-- Estilo SaaS institucional.
-- Paleta azul corporativa.
-- Fondo tecnológico para autenticación.
-- Login con glassmorphism refinado.
-- Cards blancas y superficies suaves para el área interna.
-- Sidebar y topbar responsivos.
-- Iconografía local con Material Symbols.
-- Fuentes locales Inter y Manrope.
-- Mensajes humanizados con SweetAlert2.
-- Confirmaciones antes de acciones sensibles.
-- Formularios con validación y botones deshabilitados según estado.
-
-------------------------------------------------------------
-5. FUNCIONALIDADES IMPLEMENTADAS EN EL FRONTEND
-------------------------------------------------------------
-
-Autenticación demo:
-
-- Login funcional.
-- Registro funcional de usuarios demo.
-- Contraseña demo: 123456.
-- Login validado contra usuarios almacenados en memoria/localStorage.
-- Diferenciación de permisos por rol.
+- Pantalla de inicio de sesión.
+- Pantalla de registro.
+- Manejo de sesión en frontend.
 - Cierre de sesión con confirmación.
+- Control visual de permisos según el rol del usuario.
+- Preparación para autenticación real mediante backend.
 
-Usuarios demo disponibles:
+### Dashboard
 
-- admin@desoft.cu / 123456
-- manager@desoft.cu / 123456
-- member@desoft.cu / 123456
-- backend@desoft.cu / 123456
-- qa@desoft.cu / 123456
+- Resumen general de métricas.
+- Indicadores de proyectos, tareas y desempeño.
+- Accesos rápidos a módulos principales.
 
-Proyectos:
+### Proyectos
 
 - Listado de proyectos.
-- Crear proyecto.
-- Editar proyecto.
-- Ver detalle.
-- Filtrar y buscar.
-- Validación de fechas.
-- Botones según permisos.
+- Creación de proyectos.
+- Edición de proyectos.
+- Detalle de proyecto.
+- Validaciones de formulario.
+- Acciones visibles según permisos.
 
-Tareas:
+### Tareas
 
 - Tablero Kanban.
-- Crear tarea.
-- Editar tarea.
-- Mover tarea entre estados.
-- Eliminar tarea.
-- Búsqueda.
-- Validación de formularios.
-- Acciones según permisos.
+- Creación de tareas.
+- Edición de tareas.
+- Cambio de estado de tareas.
+- Eliminación con confirmación.
+- Filtros y búsqueda.
 
-Equipo/Usuarios:
+### Usuarios y equipo
 
-- Listado de miembros.
-- Crear miembro.
-- Editar miembro.
-- Eliminar miembro.
-- Enviar invitación simulada.
-- Restablecer acceso simulado.
-- Activar/desactivar usuario.
-- Separación profesional entre:
-  - Rol de acceso: ADMIN, MANAGER, MEMBER.
-  - Rol funcional: PROJECT_MANAGER, DEVELOPER, QA, ANALYST, DESIGNER, ARCHITECT.
+- Listado de miembros del equipo.
+- Creación y edición de usuarios.
+- Gestión de estado del usuario.
+- Separación entre rol de acceso y rol funcional.
+- Simulación de invitación/restablecimiento para el MVP.
 
-Roles y permisos:
+### Roles y permisos
 
-- Vista de matriz de permisos.
-- Protección de rutas con CASL.
-- Sidebar filtrado por permisos.
-- Acciones visibles u ocultas según rol.
+- Matriz visual de permisos.
+- Protección de rutas.
+- Filtrado del menú lateral por rol.
+- Ocultamiento de acciones no permitidas.
 
-Dashboard:
+### Desempeño
 
-- Métricas principales.
-- Actividad reciente.
-- Resumen de proyectos y tareas.
-- Acceso rápido a acciones según permisos.
+- Vista de evaluación básica.
+- Métricas de productividad y participación del equipo.
 
-------------------------------------------------------------
-6. ROLES DEL SISTEMA
-------------------------------------------------------------
+---
 
-ADMIN:
+## 3. Stack tecnológico
 
-- Acceso total.
-- Puede crear, editar y eliminar proyectos.
-- Puede crear, editar y eliminar tareas.
-- Puede gestionar usuarios.
-- Puede ver roles y permisos.
-- Puede ver desempeño.
+### Frontend
 
-MANAGER:
+- Angular 21
+- Angular Material
+- Angular Signals
+- SCSS
+- CASL para permisos
+- SweetAlert2 para confirmaciones y mensajes
+- ESLint con angular-eslint
+- Prettier
+- Fuentes autoalojadas
+- Material Symbols autoalojado
+- Assets servidos desde `public/`
 
-- Puede ver dashboard, proyectos, tareas, equipo, desempeño y roles/permisos.
-- Puede gestionar proyectos.
-- Puede gestionar tareas.
-- No puede administrar usuarios.
+### Backend previsto
 
-MEMBER:
+- NestJS
+- TypeORM
+- PostgreSQL
+- JWT y refresh tokens
+- Arquitectura multi-tenant con `Organization`
+- Módulos previstos:
+  - Auth
+  - Users
+  - Projects
+  - Tasks
 
-- Puede ver dashboard, proyectos, tareas y desempeño.
-- Puede actualizar/mover tareas.
-- No puede crear proyectos.
-- No puede eliminar proyectos.
-- No puede crear ni eliminar tareas.
-- No ve Equipo.
-- No ve Roles y permisos.
+---
 
-------------------------------------------------------------
-7. COMANDOS DEL FRONTEND
-------------------------------------------------------------
+## 4. Arquitectura del frontend
 
-Todos estos comandos se ejecutan dentro de la carpeta frontend/.
+La aplicación está organizada por capas y por funcionalidades.
 
-Instalar dependencias:
+```text
+frontend/src/app/
+├── core/
+│   ├── auth/
+│   ├── layout/
+│   ├── models/
+│   ├── notifications/
+│   └── permissions/
+│
+├── features/
+│   ├── auth/
+│   ├── dashboard/
+│   ├── performance/
+│   ├── projects/
+│   ├── roles-permissions/
+│   ├── tasks/
+│   └── users/
+│
+└── shared/
+    └── ui/
+```
 
-  cd frontend
-  npm install
+### `core/`
+
+Contiene piezas transversales del sistema:
+
+- Autenticación.
+- Guards.
+- Interceptores.
+- Layout principal.
+- Sidebar y topbar.
+- Servicio global de notificaciones.
+- Configuración de permisos.
+
+### `features/`
+
+Agrupa las funcionalidades principales por dominio:
+
+- Auth.
+- Dashboard.
+- Projects.
+- Tasks.
+- Users.
+- Performance.
+- Roles and permissions.
+
+### `shared/`
+
+Contiene componentes reutilizables de interfaz.
+
+---
+
+## 5. Diseño de interfaz
+
+El diseño sigue una línea visual SaaS institucional:
+
+- Paleta azul corporativa.
+- Login con estilo glassmorphism.
+- Fondo tecnológico institucional.
+- Cards limpias.
+- Sidebar y topbar responsivos.
+- Tipografía moderna.
+- Iconografía local.
+- Formularios con validación clara.
+- Estados visuales para botones habilitados/deshabilitados.
+- Confirmaciones profesionales para acciones sensibles.
+
+Las fuentes y los iconos están autoalojados para reducir dependencias externas y mejorar la estabilidad del entorno de ejecución.
+
+---
+
+## 6. Gestión de permisos
+
+La aplicación usa CASL para gestionar permisos en frontend.
+
+Roles principales:
+
+- `ADMIN`
+- `MANAGER`
+- `MEMBER`
+
+Los permisos afectan:
+
+- Rutas disponibles.
+- Opciones del sidebar.
+- Botones visibles.
+- Acciones permitidas en proyectos, tareas y usuarios.
+
+> Nota: el control de permisos en frontend mejora la experiencia de usuario, pero en producción debe complementarse con validaciones obligatorias en backend.
+
+---
+
+## 7. Seguridad y datos sensibles
+
+Este repositorio no debe incluir:
+
+- Contraseñas reales.
+- Tokens personales.
+- Variables de entorno privadas.
+- Credenciales de servicios externos.
+- Datos sensibles de usuarios reales.
+
+El flujo actual de autenticación es de demostración para el MVP. La autenticación definitiva debe implementarse desde el backend utilizando hash seguro de contraseñas, tokens de acceso, refresh tokens y validación server-side de permisos.
+
+---
+
+## 8. Requisitos previos
+
+- Node.js compatible con Angular 21.
+- npm.
+- Git.
+
+---
+
+## 9. Instalación y ejecución
+
+Desde la raíz del repositorio:
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+La aplicación quedará disponible normalmente en:
+
+```text
+http://localhost:4200
+```
+
+---
+
+## 10. Comandos útiles
 
 Ejecutar en desarrollo:
 
-  npm start
+```bash
+cd frontend
+npm start
+```
 
-Compilar producción:
+Compilar para producción:
 
-  npm run build
+```bash
+cd frontend
+npm run build
+```
 
 Ejecutar lint:
 
-  npm run lint
+```bash
+cd frontend
+npm run lint
+```
 
-Formatear código, si el script está configurado:
+Instalar dependencias:
 
-  npm run format
+```bash
+cd frontend
+npm install
+```
 
-------------------------------------------------------------
-8. FLUJO GIT RECOMENDADO
-------------------------------------------------------------
+---
 
-El control de versiones está en la carpeta raíz:
+## 11. Flujo Git recomendado
 
+El control de versiones se maneja desde la raíz del monorepo:
+
+```text
 desoft-santiago-platform/
-
-No dentro de frontend/.
-
-Estado actual reportado:
-
-  On branch main
-  No commits yet
-  Untracked files:
-    frontend/
-
-Eso significa que Git ve el frontend como carpeta nueva pendiente de confirmar.
+```
 
 Primer commit recomendado:
 
-  git status
-  git add frontend .gitignore README.txt package.json package-lock.json commitlint.config.cjs .lintstagedrc.json .husky
-  git commit -m "chore(repo): iniciar monorepo desoft santiago platform"
+```bash
+git status
+git add .
+git commit -m "chore(repo): iniciar monorepo desoft santiago platform"
+```
 
-Si todavía no tienes remoto:
+Agregar remoto:
 
-  git remote add origin https://github.com/TU_USUARIO/desoft-santiago-platform.git
-  git branch -M main
-  git push -u origin main
+```bash
+git remote add origin https://github.com/USUARIO/desoft-santiago-platform.git
+git branch -M main
+git push -u origin main
+```
 
 Si el remoto ya existe:
 
-  git remote -v
-  git push -u origin main
+```bash
+git remote -v
+git push -u origin main
+```
 
-------------------------------------------------------------
-9. CONVENCIONES DE COMMITS
-------------------------------------------------------------
+---
 
-Se recomienda usar Conventional Commits:
+## 12. Convención de commits
+
+El proyecto recomienda usar Conventional Commits.
 
 Formato:
 
-  tipo(alcance): descripcion corta
+```text
+tipo(scope): descripción
+```
 
 Ejemplos:
 
-  feat(auth): implementar login demo con roles
-  feat(projects): agregar gestion de proyectos
-  feat(tasks): agregar tablero kanban
-  feat(users): administrar usuarios y roles
-  feat(permissions): integrar casl en rutas y acciones
-  fix(auth): corregir visibilidad de password
-  fix(forms): validar fechas y estados de botones
-  style(login): ajustar glassmorphism del formulario
-  chore(repo): configurar eslint husky y commitlint
-  docs(readme): documentar arquitectura del proyecto
+```bash
+feat(auth): implementar flujo de autenticación
+feat(projects): agregar gestión de proyectos
+feat(tasks): implementar tablero kanban
+feat(users): agregar gestión de usuarios
+feat(permissions): integrar roles y permisos
+fix(forms): corregir validaciones de formularios
+style(login): ajustar diseño de autenticación
+docs(readme): actualizar documentación del proyecto
+chore(repo): configurar herramientas del repositorio
+```
 
-Tipos recomendados:
+Tipos sugeridos:
 
-- feat: nueva funcionalidad.
-- fix: corrección de error.
-- docs: documentación.
-- style: cambios visuales o de formato sin afectar lógica.
-- refactor: mejora interna sin cambiar comportamiento.
-- chore: configuración, dependencias o tareas del repo.
-- test: pruebas.
-- build: cambios de build o despliegue.
-- ci: integración continua.
+- `feat`: nueva funcionalidad.
+- `fix`: corrección de errores.
+- `docs`: documentación.
+- `style`: cambios visuales o de formato.
+- `refactor`: mejora interna sin cambiar comportamiento.
+- `chore`: configuración o mantenimiento.
+- `test`: pruebas.
+- `build`: cambios de build.
+- `ci`: integración continua.
 
-------------------------------------------------------------
-10. CONFIGURACIÓN DE HOOKS EN MONOREPO
-------------------------------------------------------------
+---
 
-Como el control de versiones está en la raíz, los hooks deben vivir en:
+## 13. Despliegue en Netlify
 
-desoft-santiago-platform/.husky/
+Para desplegar el frontend en Netlify:
 
-Los hooks deben ejecutar comandos entrando a frontend.
+```text
+Base directory: frontend
+Build command: npm run build
+Publish directory: dist/desoft-santiago-frontend/browser
+```
 
-pre-commit recomendado:
+Antes de desplegar:
 
-  cd frontend
-  npm run lint
+```bash
+cd frontend
+npm run lint
+npm run build
+```
 
-commit-msg recomendado:
+Si la carpeta de salida cambia, revisar el resultado generado dentro de `frontend/dist/`.
 
-  npx --no -- commitlint --edit "$1"
+---
 
-Para monorepo simple, una opción práctica es tener en la raíz:
+## 14. Buenas prácticas del proyecto
 
-- package.json
-- commitlint.config.cjs
-- .lintstagedrc.json
-- .husky/pre-commit
-- .husky/commit-msg
+- Mantener la separación entre `core`, `features` y `shared`.
+- Evitar lógica de negocio compleja dentro de templates.
+- Usar servicios/stores para estado compartido.
+- Mantener componentes de UI lo más simples posible.
+- Validar formularios antes de ejecutar acciones.
+- Confirmar acciones destructivas.
+- No exponer datos sensibles en documentación ni código.
+- Mantener assets y fuentes locales organizados en `public/`.
+- Documentar decisiones importantes de arquitectura.
 
-Y mantener el frontend como aplicación dentro de frontend/.
+---
 
-------------------------------------------------------------
-11. .GITIGNORE RECOMENDADO
-------------------------------------------------------------
+## 15. Próximas etapas
 
-En la raíz del monorepo debe existir un .gitignore que ignore:
+- Crear backend NestJS.
+- Implementar autenticación real.
+- Conectar frontend con API REST.
+- Reemplazar persistencia local por base de datos.
+- Implementar refresh tokens.
+- Implementar invitaciones reales por correo.
+- Implementar recuperación segura de contraseña.
+- Agregar auditoría de cambios sensibles.
+- Agregar pruebas unitarias e integración.
+- Configurar despliegue continuo.
 
-- node_modules/
-- dist/
-- .angular/
-- .cache/
-- coverage/
-- .env
-- .env.*
-- logs
-- archivos temporales del sistema operativo
-- archivos temporales de editores
+---
 
-No se debe ignorar:
+## 16. Estado del proyecto
 
-- frontend/src/
-- frontend/public/
-- frontend/angular.json
-- frontend/package.json
-- frontend/package-lock.json
+El proyecto se encuentra en fase MVP frontend, con módulos principales funcionales y preparado para evolucionar hacia una solución full-stack.
 
-------------------------------------------------------------
-12. NETLIFY
-------------------------------------------------------------
+---
 
-Para desplegar el frontend en Netlify desde GitHub:
+## 17. Licencia
 
-Base directory:
-
-  frontend
-
-Build command:
-
-  npm run build
-
-Publish directory:
-
-  dist/desoft-santiago-frontend/browser
-
-Si Netlify detecta otra carpeta de salida, revisar el resultado de:
-
-  npm run build
-
-y confirmar dónde queda el index.html dentro de dist/.
-
-Variables de entorno:
-
-Actualmente no son obligatorias para la demo frontend. Cuando se conecte backend, se podrá agregar:
-
-  API_URL=https://api.ejemplo.com
-
-------------------------------------------------------------
-13. DECISIONES TÉCNICAS IMPORTANTES
-------------------------------------------------------------
-
-- El frontend simula persistencia con localStorage para la demo.
-- No se guardan contraseñas reales.
-- La contraseña demo es 123456.
-- En producción, las contraseñas se manejarán en backend con hash seguro.
-- Los permisos se calculan en frontend con CASL según el rol del usuario.
-- El backend futuro deberá emitir el rol real en el token o perfil del usuario.
-- Las fuentes y los iconos están autoalojados para reducir dependencia externa.
-- El diseño de login fue adaptado desde Stitch, pero integrado al sistema real con SCSS y Angular Material.
-
-------------------------------------------------------------
-14. SIGUIENTES PASOS
-------------------------------------------------------------
-
-1. Confirmar el frontend estable en GitHub.
-2. Configurar hooks de calidad: Husky, commitlint y lint-staged.
-3. Desplegar el frontend en Netlify.
-4. Crear backend NestJS.
-5. Conectar login real.
-6. Reemplazar localStorage por API REST.
-7. Implementar refresh tokens.
-8. Implementar invitación y restablecimiento real de contraseña.
-9. Agregar auditoría de cambios sensibles.
-10. Agregar pruebas unitarias y de integración.
-
-------------------------------------------------------------
-15. DEFENSA ACADÉMICA
-------------------------------------------------------------
-
-Durante la presentación se puede explicar:
-
-- Arquitectura por features.
-- Separación core/shared/features.
-- Uso de Signals para estado simple.
-- Uso de CASL para permisos.
-- Uso de SweetAlert2 para experiencia de usuario.
-- Diseño SaaS institucional adaptado desde Stitch.
-- Preparación para backend NestJS.
-- Simulación segura de usuarios sin guardar contraseñas reales.
-- Despliegue frontend en Netlify.
-- Control de calidad con ESLint y convenciones de commits.
-
-Fin del documento.
+Proyecto desarrollado con fines académicos/profesionales. Definir la licencia final antes de publicar o distribuir en producción.
