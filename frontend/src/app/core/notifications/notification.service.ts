@@ -76,9 +76,7 @@ export class NotificationService {
   confirmDiscardChanges(options: ConfirmDialogOptions = {}): Promise<boolean> {
     return this.confirmAction({
       title: options.title ?? 'Descartar cambios',
-      text:
-        options.text ??
-        'Tienes cambios sin guardar. Si continúas, se perderán.',
+      text: options.text ?? 'Tienes cambios sin guardar. Si continúas, se perderán.',
       icon: options.icon ?? 'warning',
       confirmButtonText: options.confirmButtonText ?? 'Salir sin guardar',
       cancelButtonText: options.cancelButtonText ?? 'Seguir editando',
@@ -129,6 +127,7 @@ export class NotificationService {
     void Swal.fire({
       target: 'body',
       toast: true,
+      backdrop: false,
       position: 'top-end',
       icon,
       title,
@@ -136,17 +135,13 @@ export class NotificationService {
       timer,
       timerProgressBar: true,
       customClass: {
-        container: 'ds-swal-container',
+        container: 'ds-swal-container ds-swal-toast-container',
         popup: 'ds-swal-toast',
       },
     });
   }
 
-  private async alert(
-    icon: SweetAlertIcon,
-    title: string,
-    text?: string,
-  ): Promise<void> {
+  private async alert(icon: SweetAlertIcon, title: string, text?: string): Promise<void> {
     await Swal.fire({
       target: 'body',
       heightAuto: false,

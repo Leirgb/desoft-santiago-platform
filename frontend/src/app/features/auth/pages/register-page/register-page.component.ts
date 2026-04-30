@@ -69,9 +69,28 @@ export class RegisterPageComponent {
       skills: this.parseSkills(value.skills),
     });
 
+    this.form.markAsPristine();
+
     this.notificationService.toastSuccess(
       'Cuenta creada. Puedes iniciar sesión con la contraseña demo 123456.',
     );
+
+    void this.router.navigateByUrl('/auth/login');
+  }
+
+  async cancel(): Promise<void> {
+    if (this.form.dirty) {
+      const confirmed = await this.notificationService.confirmDiscardChanges({
+        title: 'Cancelar creación de cuenta',
+        text: 'Tienes datos escritos. Si continúas, se descartará el registro.',
+        confirmButtonText: 'Sí, volver al login',
+        cancelButtonText: 'Seguir registrando',
+      });
+
+      if (!confirmed) {
+        return;
+      }
+    }
 
     void this.router.navigateByUrl('/auth/login');
   }

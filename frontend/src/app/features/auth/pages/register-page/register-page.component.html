@@ -145,14 +145,24 @@
           <strong>Miembro del equipo</strong>.
         </p>
 
-        <button
-          class="auth-card__submit"
-          type="submit"
-          [disabled]="form.invalid"
-        >
-          <span>Crear cuenta</span>
-          <mat-icon aria-hidden="true">person_add</mat-icon>
-        </button>
+        <div class="auth-card__actions">
+          <button
+            class="auth-card__secondary"
+            type="button"
+            (click)="cancel()"
+          >
+            Volver al login
+          </button>
+
+          <button
+            class="auth-card__submit"
+            type="submit"
+            [disabled]="form.invalid"
+          >
+            <span>Crear cuenta</span>
+            <mat-icon aria-hidden="true">person_add</mat-icon>
+          </button>
+        </div>
       </form>
 
       <footer class="auth-card__footer">
